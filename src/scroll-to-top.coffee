@@ -81,7 +81,7 @@
       options = typeof o is 'object' && o
 
       if not $this.data 'scrolltotop'
-        $this.data 'scrolltotop', new ScrollToTop this options
+        $this.data 'scrolltotop', new ScrollToTop this, options
 
       return
 

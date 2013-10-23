@@ -62,7 +62,7 @@
       $this = $(this);
       options = typeof o === 'object' && o;
       if (!$this.data('scrolltotop')) {
-        $this.data('scrolltotop', new ScrollToTop(this(options)));
+        $this.data('scrolltotop', new ScrollToTop(this, options));
       }
     });
   };
