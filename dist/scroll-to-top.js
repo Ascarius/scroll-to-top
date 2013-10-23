@@ -69,6 +69,7 @@
   $.fn.scrolltotop.Constructor = ScrollToTop;
   $.fn.scrolltotop.noConflict = function() {
     $.fn.scrolltotop = old;
+    return this;
   };
   return $(function() {
     $('[data-spy=scrolltotop]').each(function() {

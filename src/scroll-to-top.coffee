@@ -93,7 +93,7 @@
 
   $.fn.scrolltotop.noConflict = ->
     $.fn.scrolltotop = old
-    return
+    return this
 
 
   # DATA-API
