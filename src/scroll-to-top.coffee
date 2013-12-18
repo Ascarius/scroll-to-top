@@ -7,12 +7,6 @@
   # ===========
 
   $window   = $ window
-  scrollTop = $window.scrollTop()
-  $body     = $ document.body
-
-  $window.scroll ->
-    scrollTop = $window.scrollTop()
-    return
 
 
   # CLASS DEFINITION
@@ -25,7 +19,9 @@
       @$element = $ element
       @options  = $.extend {}, @DEFAULTS, options
 
-      $window.scroll $.proxy @update, this
+      @$target  = $ options.target
+
+      @$target.scroll $.proxy @update, this
       $window.resize $.proxy @update, this
       @$element.click $.proxy @go, this
 
@@ -34,19 +30,22 @@
     DEFAULTS:
 
       # Pixels from top from where displaying button
-      fromScrollTop : 200
+      fromScrollTop: 200
 
       # Duration of scrolling animation
-      duration      : 400
+      duration:      400
 
       # Easing effect of animation
-      easing        : 'swing'
+      easing:        'swing',
+
+      # Target to spy
+      target:        'window'
 
     update: ->
 
       options = @options
 
-      if scrollTop > options.fromScrollTop
+      if @$target.scrollTop() > options.fromScrollTop
 
         if @hidden
           @$element.fadeIn()
@@ -65,7 +64,7 @@
 
       e.preventDefault() if e
 
-      $body.animate { scrollTop: 0 }, options.duration, options.easing
+      @$target.animate { scrollTop: 0 }, options.duration, options.easing
 
       return this
 

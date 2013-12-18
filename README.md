@@ -28,6 +28,13 @@ Type: `string` Default: `swing`
 Easing effect of animation
 
 
+### target
+
+Type: `string` Default: `window`
+
+Element to spy
+
+
 Usage
 -----
 

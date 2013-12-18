@@ -1,17 +1,13 @@
 (function($, window, document) {
   "use strict";
-  var $body, $window, ScrollToTop, old, scrollTop;
+  var $window, ScrollToTop, old;
   $window = $(window);
-  scrollTop = $window.scrollTop();
-  $body = $(document.body);
-  $window.scroll(function() {
-    scrollTop = $window.scrollTop();
-  });
   ScrollToTop = (function() {
     function ScrollToTop(element, options) {
       this.$element = $(element);
       this.options = $.extend({}, this.DEFAULTS, options);
-      $window.scroll($.proxy(this.update, this));
+      this.$target = $(options.target);
+      this.$target.scroll($.proxy(this.update, this));
       $window.resize($.proxy(this.update, this));
       this.$element.click($.proxy(this.go, this));
       this.update();
@@ -20,13 +16,14 @@
     ScrollToTop.prototype.DEFAULTS = {
       fromScrollTop: 200,
       duration: 400,
-      easing: 'swing'
+      easing: 'swing',
+      target: 'window'
     };
 
     ScrollToTop.prototype.update = function() {
       var options;
       options = this.options;
-      if (scrollTop > options.fromScrollTop) {
+      if (this.$target.scrollTop() > options.fromScrollTop) {
         if (this.hidden) {
           this.$element.fadeIn();
           this.hidden = false;
@@ -46,7 +43,7 @@
       if (e) {
         e.preventDefault();
       }
-      $body.animate({
+      this.$target.animate({
         scrollTop: 0
       }, options.duration, options.easing);
       return this;
